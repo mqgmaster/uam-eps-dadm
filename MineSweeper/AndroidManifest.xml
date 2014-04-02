@@ -14,12 +14,27 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="es.uam.eps.dadm.mqg.minesweeper.MainActivity"
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.Intro"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.StartMenu"
+            android:label="" >
+            <intent-filter>
+                <action android:name="es.uam.eps.dadm.mqg.minesweeper.activity.StartMenu" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="es.uam.eps.dadm.mqg.minesweeper.MainActivity"
+            android:label="" >
+            <intent-filter>
+                <action android:name="es.uam.eps.dadm.mqg.minesweeper.MainActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>

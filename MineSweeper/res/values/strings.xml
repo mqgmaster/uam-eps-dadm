@@ -6,5 +6,12 @@
     <string name="player">Player</string>
     <string name="game_over">Game over</string>
     <string name="game_started">Put your flag!</string>
+    <string name="intro_text">Touch to start</string>
+    <string name="new_game">New Game</string>
+    <string name="preferences">Preferences</string>
+    <string name="stats">Stats</string>
+    <string name="help">Help</string>
+    <string name="about">About</string>
+    <string name="exit">Exit</string>
 
 </resources>

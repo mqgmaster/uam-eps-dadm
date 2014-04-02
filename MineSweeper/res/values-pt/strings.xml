@@ -6,5 +6,6 @@
     <string name="player">Jogador</string>
     <string name="game_over">Fim de jogo</string>
     <string name="game_started">Domine o campo!</string>
+    <string name="intro_text">Touch to start</string>
 
 </resources>
