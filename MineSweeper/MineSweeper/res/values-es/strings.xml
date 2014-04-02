@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MineSweeper</string>
+    <string name="action_settings">Definiciones</string>
+    <string name="player">Jugador</string>
+    <string name="game_over">Fin de juego</string>
+    <string name="game_started">Ponga su bandera!</string>
+
+</resources>
