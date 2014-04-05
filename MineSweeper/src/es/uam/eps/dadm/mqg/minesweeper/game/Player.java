@@ -1,4 +1,4 @@
-package es.uam.eps.dadm.mqg.minesweeper.domain;
+package es.uam.eps.dadm.mqg.minesweeper.game;
 
 /*
  * @author Mauricio Quatrin Guerreiro

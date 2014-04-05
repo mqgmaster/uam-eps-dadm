@@ -5,35 +5,60 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.Intro"
-            android:label="@string/app_name" >
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.IntroActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.StartMenu"
-            android:label="" >
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.StartMenuActivity">
             <intent-filter>
-                <action android:name="es.uam.eps.dadm.mqg.minesweeper.activity.StartMenu" />
+                <action android:name="es.uam.eps.dadm.mqg.minesweeper.activity.StartMenuActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="es.uam.eps.dadm.mqg.minesweeper.MainActivity"
-            android:label="" >
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.GameActivity">
             <intent-filter>
-                <action android:name="es.uam.eps.dadm.mqg.minesweeper.MainActivity" />
+                <action android:name="es.uam.eps.dadm.mqg.minesweeper.activity.GameActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.AboutActivity">
+            <intent-filter>
+                <action android:name="es.uam.eps.dadm.mqg.minesweeper.activity.AboutActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.HelpActivity">
+            <intent-filter>
+                <action android:name="es.uam.eps.dadm.mqg.minesweeper.activity.HelpActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.StatsActivity">
+            <intent-filter>
+                <action android:name="es.uam.eps.dadm.mqg.minesweeper.activity.StatsActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.SettingsActivity">
+            <intent-filter>
+                <action android:name="es.uam.eps.dadm.mqg.minesweeper.activity.SettingsActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

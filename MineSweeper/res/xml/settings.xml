@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="@string/settings_personal">
+		<EditTextPreference
+			android:key="player_name"
+			android:title="@string/settings_personal_player_name"/>
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/settings_game">
+		<CheckBoxPreference
+			android:key="open_all_possible_tiles"
+			android:title="@string/settings_game_open_all_possible_tiles"
+			android:summary="@string/settings_game_open_all_possible_tiles_summary"
+			android:defaultValue="true"/>
+	</PreferenceCategory>
+</PreferenceScreen>

@@ -1,4 +1,4 @@
-package es.uam.eps.dadm.mqg.minesweeper.domain;
+package es.uam.eps.dadm.mqg.minesweeper.game;
 
 /*
  * @author Mauricio Quatrin Guerreiro
@@ -44,7 +44,7 @@ public class Tile {
 		return ownerPlayerId;
 	}
 
-	public void setOwnerPlayerId(int playerId) {
-		this.ownerPlayerId = playerId;
+	public void setOwnerPlayer(Player player) {
+		this.ownerPlayerId = player.getId();
 	}
 }

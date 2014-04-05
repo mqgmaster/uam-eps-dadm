@@ -1,18 +1,22 @@
-package es.uam.eps.dadm.mqg.minesweeper;
+package es.uam.eps.dadm.mqg.minesweeper.activity;
 
 import java.util.List;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+import es.uam.eps.dadm.mqg.minesweeper.R;
 import es.uam.eps.dadm.mqg.minesweeper.adapter.TileAdapter;
-import es.uam.eps.dadm.mqg.minesweeper.domain.Player;
-import es.uam.eps.dadm.mqg.minesweeper.domain.Tile;
 import es.uam.eps.dadm.mqg.minesweeper.game.Game;
+import es.uam.eps.dadm.mqg.minesweeper.game.Player;
+import es.uam.eps.dadm.mqg.minesweeper.game.Tile;
+import es.uam.eps.dadm.mqg.minesweeper.settings.Settings;
 
 /*
  * Essa classe representa a interface inicial
@@ -21,23 +25,25 @@ import es.uam.eps.dadm.mqg.minesweeper.game.Game;
  * @author Mauricio Quatrin Guerreiro
  */
 
-public class MainActivity extends Activity {
+public class GameActivity extends Activity {
 	
     private Game gameEngine = new Game();
     private TextView playerOneText;
     private TextView playerTwoText;
     private TextView statusGameText;
     private GridView gridView;
+    private String playerName;
     
     public static final int GRAY = 0xff9C9C9C;
     public static final int BLUE = 0xff6B8EFF;
     public static final int GREEN = 0xff66BD60;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);        
+        setContentView(R.layout.game);        
         setFieldsInView();
+        preparePlayer();
         setMainMessage(R.string.game_started);
         
         gameEngine.newGame();
@@ -52,7 +58,7 @@ public class MainActivity extends Activity {
 	        @Override
 	        public void onClick(View v) {
 	            gameEngine.newGame();
-	            TileAdapter tileAdapter = new TileAdapter(MainActivity.this, gameEngine.getTiles());
+	            TileAdapter tileAdapter = new TileAdapter(GameActivity.this, gameEngine.getTiles());
 	            gridView.setAdapter(tileAdapter);
 	            setMainMessage(R.string.game_started);
 	            setPoints(gameEngine.getPlayerOne(), gameEngine.getPlayerTwo());
@@ -86,6 +92,12 @@ public class MainActivity extends Activity {
         });
     }
 
+	private void preparePlayer() {
+		SharedPreferences sharedPreferences = 
+		PreferenceManager.getDefaultSharedPreferences(this);
+		playerName = sharedPreferences.getString(Settings.PLAYER_NAME, Settings.PLAYER_NAME_DEFAULT);
+	}
+
 	private void setMainMessage(int resource) {
 		statusGameText.setText(getResources().getString(resource));
 	}
@@ -98,7 +110,7 @@ public class MainActivity extends Activity {
 	}
     
     private void setPoints(Player p1, Player p2) {
-    	playerOneText.setText(getResources().getString(R.string.player) + " 1 " + p1.getPoints());
+    	playerOneText.setText(playerName + " " + p1.getPoints());
         playerTwoText.setText(getResources().getString(R.string.player) + " 2 " + p2.getPoints());
 	}
     

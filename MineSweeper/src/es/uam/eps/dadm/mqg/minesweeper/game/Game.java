@@ -5,9 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import es.uam.eps.dadm.mqg.minesweeper.domain.Player;
-import es.uam.eps.dadm.mqg.minesweeper.domain.Tile;
-import es.uam.eps.dadm.mqg.minesweeper.domain.Tile.Status;
+import es.uam.eps.dadm.mqg.minesweeper.game.Tile.Status;
 
 /*
  * Essa classe representa a lógica do jogo.
@@ -114,7 +112,7 @@ public class Game {
     	if (tile.hasBomb()) {
         	currentPlayer.incPoints();
         	leftBombs--;
-        	tile.setOwnerPlayerId(currentPlayer.getId());
+        	tile.setOwnerPlayer(currentPlayer);
         } else {
         	changeTurn();
         }

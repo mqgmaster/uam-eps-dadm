@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
-public class Intro extends Activity {
+public class IntroActivity extends Activity {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -14,7 +14,8 @@ public class Intro extends Activity {
 	}
 	
 	public boolean onTouchEvent(MotionEvent event) {
-		startActivity(new Intent("es.uam.eps.dadm.mqg.minesweeper.activity.StartMenu"));
+		startActivity(new Intent("es.uam.eps.dadm.mqg.minesweeper.activity.StartMenuActivity"));
+		finish();
 		return true;
 	}
 }
