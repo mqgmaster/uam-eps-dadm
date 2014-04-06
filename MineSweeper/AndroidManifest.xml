@@ -35,28 +35,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.AboutActivity">
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.AboutActivity"
+            android:label="@string/about_title">
             <intent-filter>
                 <action android:name="es.uam.eps.dadm.mqg.minesweeper.activity.AboutActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.HelpActivity">
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.HelpActivity"
+            android:label="@string/help_title">
             <intent-filter>
                 <action android:name="es.uam.eps.dadm.mqg.minesweeper.activity.HelpActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.StatsActivity">
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.StatsActivity"
+            android:label="@string/stats_title">
             <intent-filter>
                 <action android:name="es.uam.eps.dadm.mqg.minesweeper.activity.StatsActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.SettingsActivity">
+            android:name="es.uam.eps.dadm.mqg.minesweeper.activity.SettingsActivity"
+            android:label="@string/settings_title">
             <intent-filter>
                 <action android:name="es.uam.eps.dadm.mqg.minesweeper.activity.SettingsActivity" />
                 <category android:name="android.intent.category.DEFAULT" />

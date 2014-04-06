@@ -7,6 +7,10 @@
     <string name="game_over">Game over</string>
     <string name="game_started">Put your flag!</string>
     <string name="intro_text">Touch to start</string>
+    <string name="game_dialog_game_over_title">Game over</string>
+    <string name="game_dialog_game_over_message">Play new game?</string>
+    <string name="game_dialog_game_over_yes">Yes</string>
+    <string name="game_dialog_game_over_no">No</string>
     
     <string name="start_menu_new_game">New Game</string>
     <string name="start_menu_settings">Settings</string>
@@ -14,10 +18,34 @@
     <string name="start_menu_help">Help</string>
     <string name="start_menu_about">About</string>
     
+    <string name="settings_title">Settings</string>
     <string name="settings_personal">Personal settings</string>
     <string name="settings_personal_player_name">Change player name</string>
     <string name="settings_game">Game settings</string>
     <string name="settings_game_open_all_possible_tiles">Open all possible tiles</string>
     <string name="settings_game_open_all_possible_tiles_summary">Neighbors of tiles that do not have bombs around also will be open</string>
     
+    <string name="stats_title">Stats</string>
+    <string name="stats_match_list_title">History of matches</string>
+    <string name="stats_list_row_player_separator"> - </string>
+    
+    <string name="about_title">About</string>
+    <string name="about_author">Author</string>
+    <string name="about_author_name">Maurício Quatrin Guerreiro</string>
+    <string name="about_author_university">Universidad Autónoma de Madrid</string>
+    <string name="about_version">Version</string>
+    <string name="about_version_number">1.2 BETA</string>
+    
+    <string name="help_title">Help</string>
+    <string name="help_rules">How to play</string>
+    <string name="help_rules_content">On his turn, each player must choose a tile on the screen.
+		Once you have chose a tile with bomb, will now have a
+		flag with the color associated at player, it will earn a point
+		and will have the right to choose another box. If the player chooses an tile with no bomb, a number that indicates the amount of
+		mines around will be seen on the screen. Thus if
+		one tile has the number 3 means that there are eight tiles
+		around (if is not on a corner or edge) and 5 without bomb.
+		The game ends when there is no chance of the player with the fewest points
+		win.
+		The winner is the player with the most points when the game is over.</string>
 </resources>

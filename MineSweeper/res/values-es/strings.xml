@@ -7,5 +7,16 @@
     <string name="game_over">Fin de juego</string>
     <string name="game_started">Ponga su bandera!</string>
     <string name="intro_text">Touch to start</string>
+    
+    <string name="help_rules_content">En su turno, cada jugador debe elegir una casilla de la pantalla.
+		Una  vez  que  haya  elegido  una  casilla  con  mina,  la  misma  tendrá  ahora  una 
+		bandera  con  el  color  asociado  al  jugador,  el  mismo  ganará  un  punto  en  el 
+		marcador y tendrá el derecho de elegir otra casilla. Si  el  jugador  elije  una  casilla  sin  mina,  un  número  que  indica  la  cantidad  de
+		minas que suman  todas las casillas circundantes  será  vista en la pantalla. Así, si 
+		una  casilla  tiene  el  número  3,  significa  que  de  las  ocho  casillas  que  hay 
+		alrededor (si no es en una esquina o borde) hay 3 con minas y 5 sin minas. 
+		El  juego  se  acaba  cuando  no  hay  posibilidades  del  jugador  con  menos  puntos 
+		ganar la partida.
+		El vencedor es el jugador con más puntos cuando se acaba el juego.</string>
 
 </resources>

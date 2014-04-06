@@ -1,19 +1,19 @@
 package es.uam.eps.dadm.mqg.minesweeper.activity;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 import es.uam.eps.dadm.mqg.minesweeper.R;
 import es.uam.eps.dadm.mqg.minesweeper.adapter.TileAdapter;
+import es.uam.eps.dadm.mqg.minesweeper.database.DatabaseAdapter;
+import es.uam.eps.dadm.mqg.minesweeper.database.Match;
 import es.uam.eps.dadm.mqg.minesweeper.game.Game;
+import es.uam.eps.dadm.mqg.minesweeper.game.GameOverDialog;
 import es.uam.eps.dadm.mqg.minesweeper.game.Player;
 import es.uam.eps.dadm.mqg.minesweeper.game.Tile;
 import es.uam.eps.dadm.mqg.minesweeper.settings.Settings;
@@ -44,24 +44,12 @@ public class GameActivity extends Activity {
         setContentView(R.layout.game);        
         setFieldsInView();
         preparePlayer();
-        setMainMessage(R.string.game_started);
-        
-        gameEngine.newGame();
-        setPoints(gameEngine.getPlayerOne(), gameEngine.getPlayerTwo());
-        setTurn(gameEngine.getCurrentPlayer());
-        
-        List<Tile> tiles = gameEngine.getTiles();
-        TileAdapter tileAdapter = new TileAdapter(this, tiles);
-        gridView.setAdapter(tileAdapter);
+        newGame();
         
         statusGameText.setOnClickListener(new View.OnClickListener() {
 	        @Override
 	        public void onClick(View v) {
-	            gameEngine.newGame();
-	            TileAdapter tileAdapter = new TileAdapter(GameActivity.this, gameEngine.getTiles());
-	            gridView.setAdapter(tileAdapter);
-	            setMainMessage(R.string.game_started);
-	            setPoints(gameEngine.getPlayerOne(), gameEngine.getPlayerTwo());
+	            newGame();
 	        }
         });
         
@@ -85,10 +73,9 @@ public class GameActivity extends Activity {
                 if (gameEngine.isGameOver()) {
                 	setMainMessage(R.string.game_over);
                 	showWinner();
+                	showGameOverDialog();
             	}
             }
-
-			
         });
     }
 
@@ -122,6 +109,11 @@ public class GameActivity extends Activity {
     	} else {
     		setMatchDrawn();
     	}
+    	DatabaseAdapter databaseAdapter = new DatabaseAdapter(this);
+    	databaseAdapter.open();
+    	databaseAdapter.insertMatch(new Match(playerName, gameEngine.getPlayerOne().getPoints(), "Player 2", 
+    			gameEngine.getPlayerTwo().getPoints()));
+    	databaseAdapter.close();
     }
     
     private void setTurn(Player player) {
@@ -136,14 +128,22 @@ public class GameActivity extends Activity {
 	    } 
 	}
     
+    public void showGameOverDialog (){
+    	new GameOverDialog().show(getFragmentManager(), "ALERT DIALOG"); 
+	}
+    
     private void setMatchDrawn() {
     	playerOneText.setBackgroundColor(BLUE);
 		playerTwoText.setBackgroundColor(GREEN);
     }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+
+	public void newGame() {
+		gameEngine.newGame();
+		TileAdapter tileAdapter = new TileAdapter(this, gameEngine.getTiles());
+		gridView.setAdapter(tileAdapter);
+		setMainMessage(R.string.game_started);
+		setPoints(gameEngine.getPlayerOne(), gameEngine.getPlayerTwo());
+		setTurn(gameEngine.getPlayerOne());
+		tileAdapter.notifyDataSetChanged();
+	}
 }
