@@ -9,11 +9,11 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 import es.uam.eps.dadm.mqg.minesweeper.R;
-import es.uam.eps.dadm.mqg.minesweeper.adapter.TileAdapter;
+import es.uam.eps.dadm.mqg.minesweeper.adapter.FieldAdapter;
 import es.uam.eps.dadm.mqg.minesweeper.database.DatabaseAdapter;
 import es.uam.eps.dadm.mqg.minesweeper.database.Match;
+import es.uam.eps.dadm.mqg.minesweeper.dialog.GameOverDialog;
 import es.uam.eps.dadm.mqg.minesweeper.game.Game;
-import es.uam.eps.dadm.mqg.minesweeper.game.GameOverDialog;
 import es.uam.eps.dadm.mqg.minesweeper.game.Player;
 import es.uam.eps.dadm.mqg.minesweeper.game.Tile;
 import es.uam.eps.dadm.mqg.minesweeper.settings.Settings;
@@ -60,13 +60,12 @@ public class GameActivity extends Activity {
             	if (gameEngine.isGameOver()) {
             		return;
             	}
-                final TileAdapter tileAdapter = (TileAdapter)gridView.getAdapter();
-                Tile tile = tileAdapter.getItem(position);
+                final FieldAdapter fieldAdapter = (FieldAdapter) gridView.getAdapter();
+                Tile tile = fieldAdapter.getItem(position);
                 
                 if (tile.getStatus() == Tile.Status.Normal) {
-                	gameEngine.checkTile(position);
-                	gameEngine.openAllTilesIfPossible(position);
-                    tileAdapter.notifyDataSetChanged();
+                	gameEngine.openTile(position);
+                	fieldAdapter.notifyDataSetChanged();
                     setPoints(gameEngine.getPlayerOne(), gameEngine.getPlayerTwo());
                     setTurn(gameEngine.getCurrentPlayer());
                 } 
@@ -139,11 +138,11 @@ public class GameActivity extends Activity {
 
 	public void newGame() {
 		gameEngine.newGame();
-		TileAdapter tileAdapter = new TileAdapter(this, gameEngine.getTiles());
-		gridView.setAdapter(tileAdapter);
+		FieldAdapter fieldAdapter = new FieldAdapter(this, gameEngine.getField());
+		gridView.setAdapter(fieldAdapter);
 		setMainMessage(R.string.game_started);
 		setPoints(gameEngine.getPlayerOne(), gameEngine.getPlayerTwo());
 		setTurn(gameEngine.getPlayerOne());
-		tileAdapter.notifyDataSetChanged();
+		fieldAdapter.notifyDataSetChanged();
 	}
 }

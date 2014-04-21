@@ -9,22 +9,23 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import es.uam.eps.dadm.mqg.minesweeper.R;
+import es.uam.eps.dadm.mqg.minesweeper.game.Field;
 import es.uam.eps.dadm.mqg.minesweeper.game.Tile;
 
 /*
  * @author Mauricio Quatrin Guerreiro
  */
 
-public class TileAdapter extends ArrayAdapter<Tile> {
+public class FieldAdapter extends ArrayAdapter<Tile> {
     private Context mContext;
     private List<Tile> tiles;
     public final int[] colors = {0xff839098, 0xffF7D842, 0xffF76D3C, 
     		0xffF15F74, 0xff913CCD, 0xff2CA8C2, 0xff98CB4A, 0xff5481E6};
     
-    public TileAdapter(Context c, List<Tile> tiles) {
-        super(c, R.layout.tile, tiles);
+    public FieldAdapter(Context c, Field field) {
+        super(c, R.layout.tile, field.getTiles());
         mContext = c;
-        this.tiles = tiles;
+        this.tiles = field.getTiles();
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {

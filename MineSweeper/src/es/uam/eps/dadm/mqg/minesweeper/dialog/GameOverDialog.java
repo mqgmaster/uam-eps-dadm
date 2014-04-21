@@ -1,4 +1,4 @@
-package es.uam.eps.dadm.mqg.minesweeper.game;
+package es.uam.eps.dadm.mqg.minesweeper.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

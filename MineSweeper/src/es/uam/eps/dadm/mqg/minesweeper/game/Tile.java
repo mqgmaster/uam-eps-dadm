@@ -10,6 +10,13 @@ public class Tile {
     private int neighbourBombSize = 0;
     private boolean bomb = false;
     private int ownerPlayerId;
+    
+    public Tile(boolean bool) {
+    	this.bomb = bool;
+    }
+    
+    public Tile() {
+    }
 	
     public static enum Status {
         Normal,
