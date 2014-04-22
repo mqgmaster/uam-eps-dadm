@@ -20,16 +20,10 @@ public class IntroActivity extends Activity {
 	//touch eh executado tantas vezes quantos toques percebe o android// perigo
 	public boolean onTouchEvent(MotionEvent event) {
 		startActivity(new Intent("es.uam.eps.dadm.mqg.minesweeper.activity.StartMenuActivity"));
-		boolean wifiConnected = false; 
 		ConnectivityManager connMgr = (ConnectivityManager) 
 		getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI); 
 		boolean isWifiConn = networkInfo.isConnected();
-		if (networkInfo != null && networkInfo.isConnected()) {
-			wifiConnected = true;
-		} else {
-			wifiConnected = false;
-		}
 		networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 		boolean isMobileConn = networkInfo.isConnected();
 		Log.d("HOLA", "Wifi connected: " + isWifiConn);

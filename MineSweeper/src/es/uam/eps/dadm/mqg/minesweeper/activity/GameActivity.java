@@ -63,7 +63,7 @@ public class GameActivity extends Activity {
                 final FieldAdapter fieldAdapter = (FieldAdapter) gridView.getAdapter();
                 Tile tile = fieldAdapter.getItem(position);
                 
-                if (tile.getStatus() == Tile.Status.Normal) {
+                if (tile.getStatus() == Tile.Status.NORMAL) {
                 	gameEngine.openTile(position);
                 	fieldAdapter.notifyDataSetChanged();
                     setPoints(gameEngine.getPlayerOne(), gameEngine.getPlayerTwo());

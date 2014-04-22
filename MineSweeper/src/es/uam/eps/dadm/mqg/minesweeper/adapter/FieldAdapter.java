@@ -41,7 +41,7 @@ public class FieldAdapter extends ArrayAdapter<Tile> {
         
         Tile.Status status = tile.getStatus();
         
-        if (status == Tile.Status.Opened) {
+        if (status == Tile.Status.OPENED) {
             if (tile.hasBomb()) {
             	switch (tile.getOwnerPlayerId()) {
 				case 1:
@@ -65,7 +65,7 @@ public class FieldAdapter extends ArrayAdapter<Tile> {
                 textView.setText("" + size);
                 textView.setTextColor(colors[size - 1]);
             }
-        } else if (status == Tile.Status.Normal) {
+        } else if (status == Tile.Status.NORMAL) {
             textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         }
         

@@ -11,6 +11,12 @@ import es.uam.eps.dadm.mqg.minesweeper.game.Tile.Status;
 
 public class Field {
 	
+	private static final char TILE_NORMAL = '0';
+	private static final char TILE_FLAG_PLAYER1 = '1';
+	private static final char TILE_FLAG_PLAYER2 = '2';
+	private static final char TILE_OPENED = '3';
+	private static final char TILE_BOMB = '4';
+	
 	private final Random random = new Random();
 	private static final int COL_SIZE = 8;
     private static final int ROW_SIZE = 8;
@@ -37,12 +43,12 @@ public class Field {
         calculeStatsForTilesWithoutBomb();
 	}
 	
-	public void installBombs(String exportedData) {
+	public void installBombs(String data) {
 		clear();
 		
 		for (int row = 0; row < ROW_SIZE; row++) {
             for (int col = 0; col < COL_SIZE; col++) {
-            	if(exportedData.charAt(row * COL_SIZE + col) == '0') {
+            	if(data.charAt(row * COL_SIZE + col) == '0') {
             		tiles.add(new Tile());
             	} else {
             		tiles.add(new Tile(true));
@@ -53,13 +59,46 @@ public class Field {
 		calculeStatsForTilesWithoutBomb();
 	}
 	
-	public String exportData() {
+	public void importDataPreGame(String data) {
+		
+	}
+	
+	public void importDataInGame(String data) {
+		
+	}
+	
+	public String exportDataPreGame() {
 		StringBuffer buffer = new StringBuffer();
 		for (Tile tile : tiles) {
 			if (tile.hasBomb()) {
-				buffer.append(1);
+				buffer.append(TILE_BOMB);
 			}
-			buffer.append(0);
+			buffer.append(TILE_NORMAL);
+        }
+		Log.d("HOLA", "field: " + buffer.toString());
+		return buffer.toString();
+	}
+	
+	public String exportDataInGame() {
+		StringBuffer buffer = new StringBuffer();
+		for (Tile tile : tiles) {
+			switch (tile.getStatus()) {
+			case NORMAL		:
+				buffer.append(TILE_NORMAL);
+				break;
+			case OPENED		: 
+				buffer.append(TILE_OPENED);
+				break;
+			case FLAGGED	:
+				if (tile.getOwnerPlayerId() == Player.ID_PLAYER1) {
+					buffer.append(TILE_FLAG_PLAYER1);
+				} else {
+					buffer.append(TILE_FLAG_PLAYER2);
+				}
+				break;
+				default:
+					break;
+			}
         }
 		Log.d("HOLA", "field: " + buffer.toString());
 		return buffer.toString();
@@ -144,11 +183,11 @@ public class Field {
         }
         Tile tile = tiles.get(position);
         
-        if (tile.getStatus() != Status.Normal) {
+        if (tile.getStatus() != Status.NORMAL) {
             return;
         }
         
-        tile.setStatus(Status.Opened);
+        tile.setStatus(Status.OPENED);
         
         int row = position / COL_SIZE;
         int col = position % COL_SIZE;

@@ -6,6 +6,9 @@ package es.uam.eps.dadm.mqg.minesweeper.game;
 
 public class Player {
 	
+	public static final int ID_PLAYER1 = 1;
+	public static final int ID_PLAYER2 = 2;
+	
 	private int points = 0;
 	private int id;
 	

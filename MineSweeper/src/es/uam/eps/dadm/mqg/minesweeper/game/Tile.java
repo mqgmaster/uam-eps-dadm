@@ -6,7 +6,7 @@ package es.uam.eps.dadm.mqg.minesweeper.game;
 
 public class Tile {
 	
-	private Status status = Status.Normal;
+	private Status status = Status.NORMAL;
     private int neighbourBombSize = 0;
     private boolean bomb = false;
     private int ownerPlayerId;
@@ -19,8 +19,9 @@ public class Tile {
     }
 	
     public static enum Status {
-        Normal,
-        Opened
+        NORMAL,
+        OPENED,
+        FLAGGED
     }
     
     public void setStatus(Status status) {
