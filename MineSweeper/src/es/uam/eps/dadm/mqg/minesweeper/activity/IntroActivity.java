@@ -12,6 +12,8 @@ import es.uam.eps.dadm.mqg.minesweeper.R;
 
 public class IntroActivity extends Activity {
 	
+	private boolean intro = false;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.intro);
@@ -19,16 +21,20 @@ public class IntroActivity extends Activity {
 	
 	//touch eh executado tantas vezes quantos toques percebe o android// perigo
 	public boolean onTouchEvent(MotionEvent event) {
-		startActivity(new Intent("es.uam.eps.dadm.mqg.minesweeper.activity.StartMenuActivity"));
-		ConnectivityManager connMgr = (ConnectivityManager) 
-		getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI); 
-		boolean isWifiConn = networkInfo.isConnected();
-		networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-		boolean isMobileConn = networkInfo.isConnected();
-		Log.d("HOLA", "Wifi connected: " + isWifiConn);
-		Log.d("HOLA", "Mobile connected: " + isMobileConn);
-		finish();
+		if (!intro) {
+			intro = true;
+			startActivity(new Intent("es.uam.eps.dadm.mqg.minesweeper.activity.StartMenuActivity"));
+			ConnectivityManager connMgr = (ConnectivityManager) 
+			getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI); 
+			boolean isWifiConn = networkInfo.isConnected();
+			networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+			boolean isMobileConn = networkInfo.isConnected();
+			Log.d("HOLA", "Wifi connected: " + isWifiConn);
+			Log.d("HOLA", "Mobile connected: " + isMobileConn);
+			finish(); 
+		}
+		
 		return true;
 	}
 }

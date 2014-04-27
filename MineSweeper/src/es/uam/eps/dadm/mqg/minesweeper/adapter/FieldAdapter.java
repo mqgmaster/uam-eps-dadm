@@ -39,23 +39,7 @@ public class FieldAdapter extends ArrayAdapter<Tile> {
 
         Tile tile = tiles.get(position);
         
-        Tile.Status status = tile.getStatus();
-        
-        if (status == Tile.Status.OPENED) {
-            if (tile.hasBomb()) {
-            	switch (tile.getOwnerPlayerId()) {
-				case 1:
-					textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.blue_flag, 0, 0, 0);
-					break;
-				case 2:
-					textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.green_flag, 0, 0, 0);
-				default:
-					break;
-				}
-            	
-                return textView;
-            }
-            
+        if (tile.getStatus() == Tile.Status.OPENED) {
             int size = tile.getNeighbourBombSize();
             textView.setBackgroundColor(0xffffffff);
             
@@ -65,8 +49,10 @@ public class FieldAdapter extends ArrayAdapter<Tile> {
                 textView.setText("" + size);
                 textView.setTextColor(colors[size - 1]);
             }
-        } else if (status == Tile.Status.NORMAL) {
+        } else if (tile.getStatus() == Tile.Status.NORMAL) {
             textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        } else if (tile.getStatus() == Tile.Status.FLAGGED) {
+			textView.setCompoundDrawablesWithIntrinsicBounds(tile.getOwnerPlayer().getFlagResource(), 0, 0, 0);
         }
         
         return textView;

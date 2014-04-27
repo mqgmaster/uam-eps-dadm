@@ -6,16 +6,19 @@ import java.util.List;
 import java.util.Random;
 
 import android.util.Log;
-
+import es.uam.eps.dadm.mqg.minesweeper.exception.EncodedFieldInvalid;
 import es.uam.eps.dadm.mqg.minesweeper.game.Tile.Status;
 
 public class Field {
 	
-	private static final char TILE_NORMAL = '0';
-	private static final char TILE_FLAG_PLAYER1 = '1';
-	private static final char TILE_FLAG_PLAYER2 = '2';
-	private static final char TILE_OPENED = '3';
-	private static final char TILE_BOMB = '4';
+	private static class EncodedField {
+		
+		private static final char TILE_NORMAL_CLEAN = '0';
+		private static final char TILE_FLAG_PLAYER1 = '1';
+		private static final char TILE_FLAG_PLAYER2 = '2';
+		private static final char TILE_OPENED = '3';
+		private static final char TILE_NORMAL_BOMB = '4';
+	}
 	
 	private final Random random = new Random();
 	private static final int COL_SIZE = 8;
@@ -23,35 +26,72 @@ public class Field {
     private static final int BOMB_SIZE = 10;
 	private final List<Tile> tiles = new ArrayList<Tile>();
 	private int leftBombs = BOMB_SIZE;
+	private Game game;
 	
-	public void installBombs() {
+	public Field(Game game) {
+		this.game = game;
+	}
+	
+	public void build() {
 		clear();
-		List<Integer> titleIndices = new ArrayList<Integer>();
+		List<Integer> tileIndexes = new ArrayList<Integer>();
         
         for (int i = 0; i < COL_SIZE * ROW_SIZE; i++) {
             tiles.add(new Tile());
-            titleIndices.add(i);
+            tileIndexes.add(i);
         }
         
-        assert(BOMB_SIZE <= titleIndices.size());
+        assert(BOMB_SIZE <= tileIndexes.size());
         for (int i = 0; i < BOMB_SIZE; i++) {
-            int bombIndex = random.nextInt(titleIndices.size());
-            tiles.get(titleIndices.get(bombIndex)).setBomb(true);
-            titleIndices.remove((int)bombIndex);
+            int bombIndex = random.nextInt(tileIndexes.size());
+            tiles.get(tileIndexes.get(bombIndex)).setBomb(true);
+            tileIndexes.remove((int)bombIndex);
         }
         
         calculeStatsForTilesWithoutBomb();
 	}
 	
-	public void installBombs(String data) {
-		clear();
+	public void update(String data) {
+		Tile tile;
 		
 		for (int row = 0; row < ROW_SIZE; row++) {
             for (int col = 0; col < COL_SIZE; col++) {
-            	if(data.charAt(row * COL_SIZE + col) == '0') {
-            		tiles.add(new Tile());
-            	} else {
-            		tiles.add(new Tile(true));
+            	tile = getTile(row, col);
+            	switch(data.charAt(row * COL_SIZE + col)) {
+            		case EncodedField.TILE_FLAG_PLAYER1:
+            			tile.setOwnerPlayer(game.getPlayerOne());
+            			break;
+            		case EncodedField.TILE_FLAG_PLAYER2:
+            			tile.setOwnerPlayer(game.getPlayerTwo());
+            			break;
+            		case EncodedField.TILE_OPENED:
+            			tile.setStatus(Status.OPENED);
+            			break;
+            		default :
+            	}
+            }
+		}
+	}
+	
+	public void importData(String data) throws EncodedFieldInvalid {
+		clear();
+		Tile tile;
+		if (data.length() < 64) {
+			throw new EncodedFieldInvalid();
+		}
+		
+		for (int row = 0; row < ROW_SIZE; row++) {
+            for (int col = 0; col < COL_SIZE; col++) {
+            	switch(data.charAt(row * COL_SIZE + col)) {
+            		case EncodedField.TILE_NORMAL_BOMB:
+            			tile = new Tile();
+            			tile.setBomb(true);
+            			tiles.add(tile);
+            			break;
+            		case EncodedField.TILE_NORMAL_CLEAN:
+            			tiles.add(new Tile());
+            			break;
+            		default :
             	}
             }
 		}
@@ -59,45 +99,30 @@ public class Field {
 		calculeStatsForTilesWithoutBomb();
 	}
 	
-	public void importDataPreGame(String data) {
-		
-	}
-	
-	public void importDataInGame(String data) {
-		
-	}
-	
-	public String exportDataPreGame() {
-		StringBuffer buffer = new StringBuffer();
-		for (Tile tile : tiles) {
-			if (tile.hasBomb()) {
-				buffer.append(TILE_BOMB);
-			}
-			buffer.append(TILE_NORMAL);
-        }
-		Log.d("HOLA", "field: " + buffer.toString());
-		return buffer.toString();
-	}
-	
-	public String exportDataInGame() {
+	public String exportData() {
 		StringBuffer buffer = new StringBuffer();
 		for (Tile tile : tiles) {
 			switch (tile.getStatus()) {
-			case NORMAL		:
-				buffer.append(TILE_NORMAL);
-				break;
-			case OPENED		: 
-				buffer.append(TILE_OPENED);
-				break;
-			case FLAGGED	:
-				if (tile.getOwnerPlayerId() == Player.ID_PLAYER1) {
-					buffer.append(TILE_FLAG_PLAYER1);
-				} else {
-					buffer.append(TILE_FLAG_PLAYER2);
-				}
-				break;
-				default:
+				case NORMAL		:
+					if (tile.hasBomb()) {
+						buffer.append(EncodedField.TILE_NORMAL_BOMB);
+					} else {
+						buffer.append(EncodedField.TILE_NORMAL_CLEAN);
+					}
 					break;
+				case OPENED		: 
+					buffer.append(EncodedField.TILE_OPENED);
+					break;
+				case FLAGGED	:
+					switch(tile.getOwnerPlayer().getNumber()) {
+						case ONE:
+							buffer.append(EncodedField.TILE_FLAG_PLAYER1);
+							break;
+						case TWO:
+							buffer.append(EncodedField.TILE_FLAG_PLAYER2);
+						default:
+						}
+				default:
 			}
         }
 		Log.d("HOLA", "field: " + buffer.toString());

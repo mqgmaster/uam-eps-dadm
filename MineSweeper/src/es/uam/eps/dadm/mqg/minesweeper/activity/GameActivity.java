@@ -27,12 +27,11 @@ import es.uam.eps.dadm.mqg.minesweeper.settings.Settings;
 
 public class GameActivity extends Activity {
 	
-    private Game gameEngine = new Game();
+    private Game gameEngine;
     private TextView playerOneText;
     private TextView playerTwoText;
     private TextView statusGameText;
     private GridView gridView;
-    private String playerName;
     
     public static final int GRAY = 0xff9C9C9C;
     public static final int BLUE = 0xff6B8EFF;
@@ -43,7 +42,7 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game);        
         setFieldsInView();
-        preparePlayer();
+        gameEngine = new Game(getLocalPlayerName(), getDefaultPlayerName());
         newGame();
         
         statusGameText.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +56,7 @@ public class GameActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                     long arg3) {
-            	if (gameEngine.isGameOver()) {
+            	if (gameEngine.isOver()) {
             		return;
             	}
                 final FieldAdapter fieldAdapter = (FieldAdapter) gridView.getAdapter();
@@ -69,7 +68,7 @@ public class GameActivity extends Activity {
                     setPoints(gameEngine.getPlayerOne(), gameEngine.getPlayerTwo());
                     setTurn(gameEngine.getCurrentPlayer());
                 } 
-                if (gameEngine.isGameOver()) {
+                if (gameEngine.isOver()) {
                 	setMainMessage(R.string.game_over);
                 	showWinner();
                 	showGameOverDialog();
@@ -78,10 +77,10 @@ public class GameActivity extends Activity {
         });
     }
 
-	private void preparePlayer() {
+	private String getLocalPlayerName() {
 		SharedPreferences sharedPreferences = 
 		PreferenceManager.getDefaultSharedPreferences(this);
-		playerName = sharedPreferences.getString(Settings.PLAYER_NAME, Settings.PLAYER_NAME_DEFAULT);
+		return sharedPreferences.getString(Settings.PLAYER_NAME, Settings.PLAYER_NAME_DEFAULT);
 	}
 
 	private void setMainMessage(int resource) {
@@ -96,8 +95,12 @@ public class GameActivity extends Activity {
 	}
     
     private void setPoints(Player p1, Player p2) {
-    	playerOneText.setText(playerName + " " + p1.getPoints());
-        playerTwoText.setText(getResources().getString(R.string.player) + " 2 " + p2.getPoints());
+    	playerOneText.setText(p1.getName() + " " + p1.getPoints());
+        playerTwoText.setText(p2.getName() + " " + p2.getPoints());
+	}
+
+	public String getDefaultPlayerName() {
+		return getResources().getString(R.string.player);
 	}
     
     private void showWinner() {
@@ -110,18 +113,21 @@ public class GameActivity extends Activity {
     	}
     	DatabaseAdapter databaseAdapter = new DatabaseAdapter(this);
     	databaseAdapter.open();
-    	databaseAdapter.insertMatch(new Match(playerName, gameEngine.getPlayerOne().getPoints(), "Player 2", 
+    	databaseAdapter.insertMatch(new Match(
+    			gameEngine.getPlayerOne().getName(), 
+    			gameEngine.getPlayerOne().getPoints(), 
+    			"Player 2", 
     			gameEngine.getPlayerTwo().getPoints()));
     	databaseAdapter.close();
     }
     
     private void setTurn(Player player) {
-	    switch(player.getId()) {
-		    case 1:
+	    switch(player.getNumber()) {
+		    case ONE:
 		    	playerOneText.setBackgroundColor(BLUE);
 				playerTwoText.setBackgroundColor(GRAY);
 				break;
-		    case 2:
+		    case TWO:
 		    	playerOneText.setBackgroundColor(GRAY);
 				playerTwoText.setBackgroundColor(GREEN);
 	    } 

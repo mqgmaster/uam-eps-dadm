@@ -9,10 +9,10 @@ public class Tile {
 	private Status status = Status.NORMAL;
     private int neighbourBombSize = 0;
     private boolean bomb = false;
-    private int ownerPlayerId;
+    private Player ownerPlayer;
     
-    public Tile(boolean bool) {
-    	this.bomb = bool;
+    public Tile(Status status) {
+    	this.status = status;
     }
     
     public Tile() {
@@ -48,11 +48,12 @@ public class Tile {
         this.bomb = bomb;
     }
 
-	public int getOwnerPlayerId() {
-		return ownerPlayerId;
+	public Player getOwnerPlayer() {
+		return ownerPlayer;
 	}
 
 	public void setOwnerPlayer(Player player) {
-		this.ownerPlayerId = player.getId();
+		status = Status.FLAGGED;
+		this.ownerPlayer = player;
 	}
 }

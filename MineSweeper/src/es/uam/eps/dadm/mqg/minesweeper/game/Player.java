@@ -6,22 +6,23 @@ package es.uam.eps.dadm.mqg.minesweeper.game;
 
 public class Player {
 	
-	public static final int ID_PLAYER1 = 1;
-	public static final int ID_PLAYER2 = 2;
-	
 	private int points = 0;
-	private int id;
+	private String name; 
+	private int flagResource;
+	private PlayerNumber number;
 	
-	public Player(int id) {
-		this.id = id;
+	public static enum PlayerNumber {
+		ONE,
+		TWO
+	}
+	
+	public Player(PlayerNumber number, int flagResource) {
+		this.number = number;
+		this.flagResource = flagResource;
 	}
 	
 	public int getPoints() {
 		return points;
-	}
-	
-	public int getId() {
-		return id;
 	}
 	
 	public void resetPoints() {
@@ -33,6 +34,22 @@ public class Player {
 	}
 	
 	public boolean equals(Player another) {
-		return this.id == another.getId();
+		return this.number.equals(another.getNumber()) && this.flagResource == another.getFlagResource();
+	}
+
+	public int getFlagResource() {
+		return flagResource;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public PlayerNumber getNumber() {
+		return number;
 	}
 }
