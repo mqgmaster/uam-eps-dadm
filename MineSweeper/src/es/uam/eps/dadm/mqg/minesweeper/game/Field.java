@@ -51,7 +51,7 @@ public class Field {
         calculeStatsForTilesWithoutBomb();
 	}
 	
-	public void update(String data) {
+	public void update(String data) throws EncodedFieldInvalid {
 		Tile tile;
 		
 		for (int row = 0; row < ROW_SIZE; row++) {
@@ -68,6 +68,7 @@ public class Field {
             			tile.setStatus(Status.OPENED);
             			break;
             		default :
+            			throw new EncodedFieldInvalid();
             	}
             }
 		}
@@ -75,7 +76,7 @@ public class Field {
 	
 	public void importData(String data) throws EncodedFieldInvalid {
 		clear();
-		Tile tile;
+		Tile tile = null;
 		if (data.length() < 64) {
 			throw new EncodedFieldInvalid();
 		}
@@ -83,16 +84,29 @@ public class Field {
 		for (int row = 0; row < ROW_SIZE; row++) {
             for (int col = 0; col < COL_SIZE; col++) {
             	switch(data.charAt(row * COL_SIZE + col)) {
+	            	case EncodedField.TILE_FLAG_PLAYER1:
+	        			tile = new Tile();
+	        			tile.setOwnerPlayer(game.getPlayerOne());
+	        			break;
+	        		case EncodedField.TILE_FLAG_PLAYER2:
+	        			tile = new Tile();
+	        			tile.setOwnerPlayer(game.getPlayerTwo());
+	        			break;
+	        		case EncodedField.TILE_OPENED:
+	        			tile = new Tile();
+	        			tile.setStatus(Status.OPENED);
+	        			break;
             		case EncodedField.TILE_NORMAL_BOMB:
             			tile = new Tile();
             			tile.setBomb(true);
-            			tiles.add(tile);
             			break;
             		case EncodedField.TILE_NORMAL_CLEAN:
-            			tiles.add(new Tile());
+            			tile = new Tile();
             			break;
             		default :
+            			throw new EncodedFieldInvalid();
             	}
+            	tiles.add(tile);
             }
 		}
 		

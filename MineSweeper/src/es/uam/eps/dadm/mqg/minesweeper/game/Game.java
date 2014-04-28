@@ -29,7 +29,7 @@ public class Game {
     	playerOne.resetPoints();
     	playerTwo.resetPoints();
     	try {
-			field.importData("0044000000000000000000044004040000004000000400000004000000040000");
+			field.importData("1044000000000000000000044004040000004000000400000004000000040000");
 		} catch (EncodedFieldInvalid e) {
 			e.printStackTrace();
 		}
