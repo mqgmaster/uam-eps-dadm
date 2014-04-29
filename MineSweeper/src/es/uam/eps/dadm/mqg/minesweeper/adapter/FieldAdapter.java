@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import es.uam.eps.dadm.mqg.minesweeper.R;
-import es.uam.eps.dadm.mqg.minesweeper.game.Field;
 import es.uam.eps.dadm.mqg.minesweeper.game.Tile;
+import es.uam.eps.dadm.mqg.minesweeper.game.field.Field;
 
 /*
  * @author Mauricio Quatrin Guerreiro

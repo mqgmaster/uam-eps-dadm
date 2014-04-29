@@ -11,11 +11,6 @@ public class Player {
 	private int flagResource;
 	private PlayerNumber number;
 	
-	public static enum PlayerNumber {
-		ONE,
-		TWO
-	}
-	
 	public Player(PlayerNumber number, int flagResource) {
 		this.number = number;
 		this.flagResource = flagResource;

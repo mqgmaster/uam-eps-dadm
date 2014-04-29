@@ -1,8 +1,8 @@
 package es.uam.eps.dadm.mqg.minesweeper.game;
 
 import es.uam.eps.dadm.mqg.minesweeper.R;
-import es.uam.eps.dadm.mqg.minesweeper.exception.EncodedFieldInvalid;
-import es.uam.eps.dadm.mqg.minesweeper.game.Player.PlayerNumber;
+import es.uam.eps.dadm.mqg.minesweeper.game.field.Field;
+import es.uam.eps.dadm.mqg.minesweeper.game.field.exception.EncodedFieldInvalid;
 
 
 /*

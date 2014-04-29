@@ -1,4 +1,4 @@
-package es.uam.eps.dadm.mqg.minesweeper.game;
+package es.uam.eps.dadm.mqg.minesweeper.game.field;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,19 +6,12 @@ import java.util.List;
 import java.util.Random;
 
 import android.util.Log;
-import es.uam.eps.dadm.mqg.minesweeper.exception.EncodedFieldInvalid;
+import es.uam.eps.dadm.mqg.minesweeper.game.Game;
+import es.uam.eps.dadm.mqg.minesweeper.game.Tile;
 import es.uam.eps.dadm.mqg.minesweeper.game.Tile.Status;
+import es.uam.eps.dadm.mqg.minesweeper.game.field.exception.EncodedFieldInvalid;
 
 public class Field {
-	
-	private static class EncodedField {
-		
-		private static final char TILE_NORMAL_CLEAN = '0';
-		private static final char TILE_FLAG_PLAYER1 = '1';
-		private static final char TILE_FLAG_PLAYER2 = '2';
-		private static final char TILE_OPENED = '3';
-		private static final char TILE_NORMAL_BOMB = '4';
-	}
 	
 	private final Random random = new Random();
 	private static final int COL_SIZE = 8;
